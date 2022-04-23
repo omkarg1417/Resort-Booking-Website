@@ -9,7 +9,11 @@ const hotelSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    image: {
+    location: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
         type: String,
         required: true,
     },
@@ -20,7 +24,7 @@ const hotelSchema = new mongoose.Schema({
         type: Number,
         required: true,
     }
-});
+}, {timestamps:true});
 
 const Hotel = mongoose.model('Hotel', hotelSchema);
 

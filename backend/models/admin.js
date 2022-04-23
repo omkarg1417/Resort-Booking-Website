@@ -14,11 +14,11 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-})
+    // role: {
+    //     type: Number,
+    //     default: 0
+    // }
+}, {timestamps:true})
 
 const Admin = mongoose.model('Admin', adminSchema);
 module.exports = Admin;

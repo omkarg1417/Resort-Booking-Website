@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const {mongo_uri} = require('../config/index');
-// const mongo_uri = "mongodb://localhost:27017/podcast";
 
 
 const connectToMongo = () => {

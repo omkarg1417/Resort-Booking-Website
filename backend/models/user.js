@@ -14,11 +14,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    date: {
-        type: Date,
-        default: Date.now
+    bookings: {
+        type: Array,
+        default: []
     }
-})
+
+}, {timestamps:true});
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

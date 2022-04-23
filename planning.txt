@@ -1,0 +1,37 @@
+HOLD: 
+    USER:
+        rating
+    ADMIN:
+        Delete Admin
+	View users rather than just user count
+    HOTEL:
+        packages
+    BOT:
+        email on user signup
+
+
+
+User: 
+    - Signin
+    - Login/Logout
+    - view hotel
+    - Logged in (user): 
+        1. get profile (getUserDetails)
+        2. search hotel:
+            a. location (getHotelByLocation).
+            b. price-range (HotelByLocation).
+        3. book (also add promo code may be from cookies) (bookHotel)
+        4. payment (pay)  
+        5. update account details (updateUserDetails)
+        6. delete account (deleteUser)
+    
+    - Logged in (admin):
+        1. Add new hotels (addHotel)
+        2. Update Hotel details (updateHotel)
+        3. Delete Hotel details (deleteHotel)
+        4. Get Registered user count. (getUserCount)
+
+BOT:
+    - email on booking
+        
+    

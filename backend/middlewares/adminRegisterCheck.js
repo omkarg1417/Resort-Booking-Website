@@ -8,7 +8,7 @@ const adminRegisterCheck = (req, res, next) => {
     if(email.search("@" + org_domain) != -1) {
         next();
     } else{
-        res.status(400).json({
+        return res.status(400).json({
             message: "invalid admin email",
             success: false
         });
