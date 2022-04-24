@@ -14,8 +14,8 @@ const signupAdmin = async (req, res) => {
     try {
         const admin = await Admin.findOne({email});
         if(admin){
-            res.status(401).send("Admin already exist");
-            console.log(email);
+            res.status(400).send("Admin already exist");
+            ;
         }
         else{
 
@@ -57,6 +57,7 @@ const login = async (req, res) => {
             //create a token and store in cookie
             const token = jwt.sign({
                 id: admin.id,
+                role: 'admin'
             },
             SECRET,
             {
@@ -124,40 +125,43 @@ const uploadHotelInfo = async (req, res) => {
 };
 
 const updateHotelInfo = async (req, res) => {
-    const id = req.params['id'];
+    const {id} = req.params;
     const {name, description, location, imageUrl, maxOccupancy, pricePerDay} = req.body;
 
-    try {
+    const hotel = await Hotel.findByIdAndUpdate(
+        id,
+        {name, description, location, imageUrl, maxOccupancy, pricePerDay},
+        {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        }
+        );
 
-        const hotel = await Hotel.findOne({_id : id});
-        await Hotel.updateOne({_id : id}, {
-            name: (name)?name:hotel.name,
-            description: (description)?description:hotel.description,
-            location: (location)?location:hotel.location,
-            imageUrl: (imageUrl)?imageUrl:hotel.imageUrl,
-            maxOccupancy : (maxOccupancy)?maxOccupancy:hotel.maxOccupancy,
-            pricePerDay: (pricePerDay)?pricePerDay:hotel.pricePerDay
-        });
-
-        res.status(200).json({
-            message: "Hotel info updated successfully"
-        });
-
-    } catch(err) {
-        console.log("ERROR: ", err);
-        res.status(500).json({
-            error: "Something went wrong while updating hotel info"
+    if(!hotel) {
+        return res.status(404).json({
+            message: "Not found"
         });
     }
+    
+    res.status(200).json({
+        message: "Hotel info updated successfully",
+        data: {hotel}
+    });
     
 }
 
 const deleteHotelInfo = async (req, res) => {
     const id = req.params['id'];
     try {
-
+        const hotel = await Hotel.findOne({_id:id});
+        if(!hotel) {
+            return res.status(404).json({
+                message: "Not found"
+            });
+        }
         await Hotel.deleteOne({_id : id});
-
+        
         res.status(200).json({
             message: "Hotel info deleted successfully"
         });
