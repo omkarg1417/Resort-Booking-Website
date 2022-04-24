@@ -1,4 +1,6 @@
 const {isValidEmail} = require('../utils/validate');
+const jwt = require('jsonwebtoken');
+const {SECRET}=require('../config/index');
 
 const loginChecks = (req, res, next) => {
     if(isValidEmail(req.body.email)) {
@@ -12,13 +14,39 @@ const loginChecks = (req, res, next) => {
 }
 
 const isLoggedIn = (req, res, next) => {
-    if(req.id) {
+    // console.log(req.cookies.token);
+    if(req.cookies.token === undefined) {
+        return res.status(401).json({
+            message: "Unauthorized"
+        });
+    }
+    else{
+        const decoded = jwt.verify(req.cookies.token, SECRET);
+        req.id = decoded.id;
+        req.role = decoded.role;
+        // console.log(req.id, req.role);
+    }
+    next();
+}
+
+const isAdmin = (req, res, next) => {
+    if(req.role==='admin') {
         next();
     } else{
-        res.status(401).json({
-            message: "Unauthorized"
-        })
+        return res.status(401).json({
+            message : "Unauthorized"
+        });
     }
 }
 
-module.exports = {loginChecks, isLoggedIn};
+const isUser = (req, res, next) => {
+    if(req.role==='user') {
+        next();
+    } else{
+        return res.status(401).json({
+            message : "Unauthorized"
+        });
+    }
+}
+
+module.exports = {loginChecks, isLoggedIn, isAdmin, isUser};
