@@ -12,10 +12,17 @@ const signupAdmin = async (req, res) => {
     const { name, email, password } = req.body;
     
     try {
+        if(!name || !email || !password) {
+            return res.status(400).json({
+                err: "Please enter the credentials",
+            })
+        }
+        
         const admin = await Admin.findOne({email});
         if(admin){
-            res.status(400).send("Admin already exist");
-            ;
+            return res.status(400).json({
+                err:"Admin already exist"
+            });
         }
         else{
 
@@ -29,12 +36,18 @@ const signupAdmin = async (req, res) => {
             });
             const savedAdmin = await newAdmin.save();
 
-            res.status(201).send(savedAdmin);
+            // res.status(201).send(savedAdmin);
+            res.status(200).json({
+                message: "Admin registered successfully",
+                data: {savedAdmin}
+            })
         }
         
     } catch(err) {
         console.log("Signup Error: " + err);
-        res.status(501).send("Signup Failed! something went wrong");
+        res.status(500).json({
+            err: "Signup Failed! something went wrong"
+        });
     }
 }
 
@@ -44,13 +57,18 @@ const login = async (req, res) => {
     const {email, password} = req.body;
 
     try {
+        if(!email || !password) {
+            return res.status(400).json({
+                err: "Please enter email and password"
+            });
+        }
+        
         const admin = await Admin.findOne({email});
         //validate password
         const passCheck = await bcrypt.compare(password, admin.password);
         if(!passCheck) {
             return res.status(400).json({ 
-                message: "Enter valid email and password", 
-                success: false 
+                err: "Please enter valid email and password", 
             });
         }
         else{
@@ -61,7 +79,7 @@ const login = async (req, res) => {
             },
             SECRET,
             {
-                expiresIn: '8h' 
+                expiresIn: '1d' 
             });
 
             res.cookie("token", token);
@@ -77,13 +95,14 @@ const login = async (req, res) => {
             res.status(200).json({
                 ...result,
                 message: "You are now logged in",
-                success: true
             });
             
         }
     } catch(err) {
         console.log("Login error: " + err);
-        res.status(500).send("Login failed! something went wrong");
+        res.status(500).json({
+            err: "Login failed! something went wrong"
+        });
     }
 }
 
@@ -103,7 +122,7 @@ const uploadHotelInfo = async (req, res) => {
         const hotel = await Hotel.findOne({name});
         if(hotel) {
             return res.status(400).json({
-                message: "Hotel already exist with given name"
+                err: "Hotel already exist with given name"
             });
         }
         const newHotel = new Hotel({
@@ -115,11 +134,16 @@ const uploadHotelInfo = async (req, res) => {
             pricePerDay
         });
         const savedHotel = await newHotel.save();
-        res.status(201).send({savedHotel});
+        res.status(201).json({
+            data: {savedHotel},
+            message: `Hotel ${name} saved successfully`
+        });
     }
     catch(err) {
         console.log('Hotel info upload error ' + err);
-        res.status(501).send("Hotel info upload failed! Something went wrong");
+        res.status(501).json({
+            err: "Hotel info upload failed! Something went wrong"
+        });
     }
     
 };
@@ -140,7 +164,7 @@ const updateHotelInfo = async (req, res) => {
 
     if(!hotel) {
         return res.status(404).json({
-            message: "Not found"
+            err: "Hotel not found"
         });
     }
     
@@ -154,13 +178,15 @@ const updateHotelInfo = async (req, res) => {
 const deleteHotelInfo = async (req, res) => {
     const id = req.params['id'];
     try {
-        const hotel = await Hotel.findOne({_id:id});
+        const hotel = await Hotel.findById(id);
         if(!hotel) {
             return res.status(404).json({
-                message: "Not found"
+                err: "Hotel not found"
             });
         }
-        await Hotel.deleteOne({_id : id});
+        // await Hotel.deleteOne({_id : id});
+
+        await hotel.remove();
         
         res.status(200).json({
             message: "Hotel info deleted successfully"
@@ -169,7 +195,7 @@ const deleteHotelInfo = async (req, res) => {
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error: "Something went wrong while deleting hotel info"
+            err: "Something went wrong while deleting hotel info"
         });
     }
 }
@@ -180,13 +206,13 @@ const getUserCount = async (req, res) => {
         const count = await User.countDocuments();
 
         res.status(200).json({
-            userCount : count
+            data: {count}
         })
 
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error: "Something went wrong while getting user count"
+            err: "Something went wrong while getting user count"
         })
     }
 }

@@ -11,10 +11,16 @@ const Hotel = require('../models/hotel');
 const signup = async (req, res) => {
     const { name, email, password } = req.body;
     try {
+        if(!name || !email || !password) {
+            return res.status(400).json({
+                err : "Please enter required credentials"
+            });
+        }
         const user = await User.findOne({email});
         if(user){
-            res.status(401).send("User already exist");
-            console.log(email);
+            res.status(400).json({
+                err: "User already registered"
+            });
         }
         else{
 
@@ -33,7 +39,9 @@ const signup = async (req, res) => {
         
     } catch(err) {
         console.log("Signup Error: " + err);
-        res.status(501).send("Signup Failed! something went wrong");
+        res.status(500).json({
+            err : "Signup failed! something went wrong",
+        })
     }
 }
 
@@ -42,19 +50,24 @@ const login = async (req, res) => {
     const {email, password} = req.body;
 
     try {
-        const user = await User.findOne({where: {email}});
+        if(!email || !password) {
+            return res.status(400).json({
+                err: "Please enter email and password"
+            });
+        }
+        const user = await User.findOne({email});
         //validate password
         const passCheck = await bcrypt.compare(password, user.password);
         if(!passCheck) {
             return res.status(400).json({ 
-                message: "Enter valid email and password", 
-                success: false 
+                err: "Enter valid email and password", 
             });
         }
         else{
             //create a token and store in cookie
             const token = jwt.sign({
                 id: user.id,
+                role: 'user'
             },
             SECRET,
             {
@@ -80,7 +93,9 @@ const login = async (req, res) => {
         }
     } catch(err) {
         console.log("Login error: " + err);
-        res.status(500).send("Login failed! something went wrong");
+        res.status(500).json({
+            err : "Login Failed",
+        });
     }
 }
 
@@ -96,56 +111,89 @@ const getUserDetails = async (req, res) => {
     try {
         const user = await User.findOne({_id: id});
         res.status(200).json({
-            user
+            message: "success",
+            data : {user}
         });
     } catch(err) {
         console.log("ERROR", err);
         res.status(500).json({
-            message: "something went wrong with getting user",
+            err: "Get user failed",
             error: err
-        })
+        });
     }
 }
 
 const updateUser = async (req, res) => {
     const {name, email, password} = req.body;
     const id = req.id;
-    try {
-        
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hash = bcrypt.hashSync(password, salt);
 
-        const user = await User.findOne({_id:id});
-        await User.updateOne({_id: id}, {name : (name)?name:user.name,
-            email : (email)?email:user.email, password: (password)?hash:user.password});
+    
 
-        res.status(200).json({
-            message: "User updates successfully"
-        })
-    } catch(err) {
-        console.log("ERROR", err);
-        res.status(500).json({
-            message: "something went wrong with updating user",
-            error: err
+    // const user = await User.findOne({_id:id});
+    // await User.updateOne({_id: id}, {
+    //     name : (name)?name:user.name,
+    //     email : (email)?email:user.email, 
+    //     password: (password)?hash:user.password
+    // });
+
+    const user = await User.findOneAndUpdate(
+        id,
+        {name, email, password},
+        {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        }
+    );
+
+    if(!user) {
+        res.status(404).json({
+            message: "User not found",
+            err
         })
     }
+    
+    res.status(200).json({
+        message: "User updated successfully",
+        data: {user}
+    })
+    
 }
 
 const deleteUser = async (req, res) => {
     const id = req.id;
     try{
 
-        await User.deleteOne({_id: id});
+        // await User.deleteOne({_id: id});
+
+        const user = User.findById(id);
+
+        if(!user) {
+            res.status(404).json({
+                err: "User not found",
+            });
+        }
+
+        await user.remove();
         res.status(200).json({
-            message: "User deleted successfully"
+            message: `User ${user.email} deleted successfully`
         });
 
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error:"something went wrong with deleting user"
+            err:"something went wrong with deleting user",
         });
     }
+}
+
+const getDayDifference = (checkInDate, checkOutDate) => {
+    // getting difference in date
+    let date1 = new Date(checkInDate);
+    let date2 = new Date(checkOutDate);
+    const timeDifference = date2.getTime() - date1.getTime();
+    const dayDifference = timeDifference/(1000*3600*24);
+    return dayDifference;
 }
 
 //Hotel controllers
@@ -154,36 +202,51 @@ const bookResort = async (req, res) => {
     const userId = req.id;
     const {checkInDate, checkOutDate, memberCount} = req.body;
     try{
-
-        if(checkInDate <= new Date() || checkOutDate < checkInDate) {
+        
+        const hotel = await Hotel.findById(id);
+        if(!hotel) {
             return res.status(400).json({
-                error: "Invalid dates"
+                err: "Hotel Not found"
             });
         }
+        if((!checkInDate || !checkOutDate) || checkInDate <= new Date() || checkOutDate < checkInDate) {
+            return res.status(400).json({
+                err: "Invalid dates"
+            });
+        }
+        if(hotel.maxOccupancy < memberCount) {
+            return res.status(400).json({
+                err: `Member count more than the ${hotel.maxOccupancy}`
+            })
+        }
+        
+        const price = getDayDifference(checkInDate, checkOutDate) * hotel.pricePerDay;
+        
         const bookingObject = {
             user: userId,
             hotel: hotelId,
             checkInDate,
             checkOutDate,
-            memberCount
+            memberCount,
+            price
         };
         
         const newBooking = new Booking(bookingObject);
         const savedBooking = await newBooking.save();
 
-        const hotel = await Hotel.findOne({_id : hotelId});
+        
         const user = await User.findOne({_id : userId});
-        await sendBookingMail(user.email, hotel, {isBookingCreation: true});
+        await sendBookingMail(user, hotel, savedBooking, {isBookingCreation: true});
         
         res.status(200).json({
-            message: "Booking successful",
-            booking: savedBooking
+            message: "Hotel booked successfully",
+            data: {savedBooking}
         });
 
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error: "Something went wrong while booking the resort"
+            err: "Something went wrong while booking the resort",
         });
     }
     
@@ -201,7 +264,7 @@ const deleteBooking = async (req, res) => {
 
         const hotel = await Hotel.findOne({_id : hotelId});
         const user = await User.findOne({_id : userId});
-        await sendBookingMail(user.email, hotel, {});
+        await sendBookingMail(user, hotel, {});
         
         res.status(200).json({
             message: "Booking cancelled successfully"
@@ -210,7 +273,7 @@ const deleteBooking = async (req, res) => {
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error: "Something went wrong while deleting the booking"
+            err: "Something went wrong while deleting the booking",
         });
     }
 }

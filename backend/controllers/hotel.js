@@ -5,35 +5,39 @@ const getHotelInfo = async (req, res) => {
 
     try {
         const hotel = await Hotel.findOne({_id:id});
+        if(!hotel) {
+            return res.status(404).json({
+                err: "Not Found"
+            });
+        }
         res.status(200).json({
-            hotelInfo: hotel
+            data: {hotel}
         })
-    } catch{
+    } catch(err){
         console.log('Hotel info get error ' + err);
-        res.status(501).send("Hotel info get failed! Something went wrong");
+        res.status(501).json({
+            message : "Hotel info get failed",
+            err
+        });
     }
     
 };
 
 const getHotels = async (req, res) => {
-    const location = req.query.location;
+    const {location} = req.query;
     try {
         
         const hotel = await Hotel.find({location});
-        if(!hotel.size()) {
-            return res.status(400).json({
-                message: "No hotel found"
-            })
-        }
         res.status(200).json({
-            hotels: hotel
+            message: "success",
+            data: {hotel}
         });
         
     } catch(err) {
         console.log("ERROR: ", err);
         res.status(500).json({
-            error: "Something went wrong while finding hotels"
-        })
+            err: "Something went wrong while finding hotels",
+        });
     }
 }
 

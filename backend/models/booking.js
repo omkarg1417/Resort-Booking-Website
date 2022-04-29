@@ -20,6 +20,11 @@ const bookingSchema = new mongoose.Schema({
     memberCount: {
         type: Number,
         required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+        default: 0
     }
 }, {timestamps:true});
 

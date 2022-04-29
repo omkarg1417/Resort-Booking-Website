@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {registerInitialCheck} = require('../middlewares/registerInitialChecks');
-const {loginChecks, isLoggedIn} = require('../middlewares/loginChecks');
+const {loginChecks, isLoggedIn, isUser} = require('../middlewares/loginChecks');
 const {signup, login, logout, getUserDetails, updateUser, deleteUser, bookResort, deleteBooking} = require('../controllers/user');
 const {getHotelInfo, getHotels} = require('../controllers/hotel')
-const decodeJwt = require('../middlewares/decodeJwt');
 
 
 // Basic User routes
@@ -16,25 +15,25 @@ router.get('/logout', logout);
 
 
 // Authenticated User routes
-router.get('/get-user', [decodeJwt, isLoggedIn], getUserDetails);
+router.get('/get-user', [isLoggedIn, isUser], getUserDetails);
 
-router.put('/update-user', [decodeJwt, isLoggedIn], updateUser);
+router.put('/update-user', [isLoggedIn, isUser], updateUser);
 
-router.delete('/delete-user', [decodeJwt, isLoggedIn], deleteUser);
+router.delete('/delete-user', [isLoggedIn, isUser], deleteUser);
 
 
 //Hotel routes
-router.get('/get-hotels/?location', getHotels);
+router.get('/get-hotels', getHotels);
 
 router.get('/get-hotel-info/:id', getHotelInfo);
 
 
 //Authenticated Hotel routes
-router.post('/book-hotel/:id', [decodeJwt, isLoggedIn],  bookResort);
+router.post('/book-hotel/:id', [isLoggedIn, isUser],  bookResort);
 
 //ADD AN EDIT BOOKING ROUTE
 
-router.delete('/delete-booking/:id', [decodeJwt, isLoggedIn], deleteBooking);
+router.delete('/delete-booking/:id', [isLoggedIn, isUser], deleteBooking);
 
 //ADD Payment route
 

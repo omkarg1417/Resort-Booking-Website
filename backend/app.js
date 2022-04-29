@@ -5,7 +5,6 @@ const app = express();
 const {app_port} = require('./config/index');
 const cors = require("cors");
 app.use(cors());
-// app.head('Access-Control-Allow-Origin: *');
 
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
@@ -20,7 +19,7 @@ app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 
 
-app.listen(app_port, () => {
+app.listen(app_port || '8000', () => {
     console.log(`Server listening at ${app_port}`)
 })
 

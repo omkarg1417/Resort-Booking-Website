@@ -14,7 +14,7 @@ const registerInitialCheck = (req, res, next) => {
     ) {
         next();
     } else{
-        res.status(401).send("Initial check fail");
+        res.status(400).send("Initial check fail");
     }
     
 }
