@@ -8,7 +8,7 @@ const loginChecks = (req, res, next) => {
     }
     else{
         return res.status(400).json({
-            message: "invalid email"
+            err: "invalid email"
         });
     }
 }
@@ -17,7 +17,7 @@ const isLoggedIn = (req, res, next) => {
     // console.log(req.cookies.token);
     if(req.cookies.token === undefined) {
         return res.status(401).json({
-            message: "Unauthorized"
+            err: "Unauthorized"
         });
     }
     else{
@@ -34,7 +34,7 @@ const isAdmin = (req, res, next) => {
         next();
     } else{
         return res.status(401).json({
-            message : "Unauthorized"
+            err : "Unauthorized"
         });
     }
 }
@@ -44,7 +44,7 @@ const isUser = (req, res, next) => {
         next();
     } else{
         return res.status(401).json({
-            message : "Unauthorized"
+            err : "Unauthorized"
         });
     }
 }
