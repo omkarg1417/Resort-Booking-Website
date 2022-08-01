@@ -1,0 +1,121 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#user-dashboard{
+    display: grid;
+    grid-template-columns: 30% auto;
+    font-size: 1.2rem;
+    /* box-sizing: border-box; */
+}
+
+h2{
+    margin-bottom: 1rem;
+}
+
+#details{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    /* gap: 1rem; */
+    padding: 2rem 0rem;
+    /* background-color: whitesmoke; */
+    background-color: rgb(34, 34, 34);
+    color: white;
+}
+
+.detail{
+    color: #2fb62a;
+    font-weight: bolder;
+}
+
+.detail, .values, #details h2 {
+    margin: 1rem;
+}
+
+.user-avatar{
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 5px solid #2fb62a;
+}
+
+.avatar-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+#bookings-container{
+    background-color: #2fb62a;
+    padding: 2rem 4rem;
+    box-sizing: border-box;
+    /* overflow: scroll; */
+}
+
+.booking{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+    height: 35vh;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    /* background-color: whitesmoke; */
+    background-color: rgb(34, 34, 34);
+    color:white;
+    margin: 1rem;
+}
+
+.resort-info{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.resort-info h3{
+    color: #2fb62a;
+}
+
+.resort-img-div{
+    width: 100%;
+    border-radius: 1rem;
+    background-color: aqua;
+}
+
+.resort-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.btn{
+    width: 40%;
+    padding: 1rem 1.6rem;
+    border-radius: 0.4rem;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    background-color: #2fb62a;
+}
+
+#my-btn {
+        width: 100%;
+        padding: 1rem 1.6rem;
+        border-radius: 0.4rem;
+        font-size: 1.2rem;
+        border: none;
+        outline: none;
+        background-color: #2fb62a;
+}
+
+.btn:hover{
+    cursor: pointer;
+}

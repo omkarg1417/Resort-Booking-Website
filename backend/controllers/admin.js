@@ -51,7 +51,6 @@ const signupAdmin = async (req, res) => {
     }
 }
 
-
 const login = async (req, res) => {
     const {email, password} = req.body;
 
@@ -87,7 +86,7 @@ const login = async (req, res) => {
                 id: admin.id,
                 name: admin.name,
                 email: admin.email,
-                token: `Bearer ${token}`,
+                token: token,
                 expiresIn: "1d",
             }
 
@@ -216,4 +215,22 @@ const getUserCount = async (req, res) => {
     }
 }
 
-module.exports = {signupAdmin, login, logout, uploadHotelInfo, getUserCount, updateHotelInfo, deleteHotelInfo};
+const getAdminDetails = async (req, res) => {
+    // const id = req.id;
+    const {id} = req.params;
+    try {
+        const admin = await Admin.findOne({_id: id});
+        res.status(200).json({
+            message: "success",
+            data : {admin}
+        });
+    } catch(err) {
+        console.log("ERROR", err);
+        res.status(500).json({
+            err: "Get user failed",
+            error: err
+        });
+    }
+}
+
+module.exports = {signupAdmin, login, logout, uploadHotelInfo, getUserCount, updateHotelInfo, deleteHotelInfo, getAdminDetails};

@@ -15,7 +15,7 @@ router.get('/logout', logout);
 
 
 // Authenticated User routes
-router.get('/get-user', [isLoggedIn, isUser], getUserDetails);
+router.get('/get-user/:id', getUserDetails);
 
 router.put('/update-user', [isLoggedIn, isUser], updateUser);
 

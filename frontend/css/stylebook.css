@@ -1,0 +1,85 @@
+/* Enter css here */
+
+#book-heading, .booking-form{
+    visibility: hidden;
+    height: 0;
+    
+}
+
+/* LAYOUT 1 */
+#book-heading {
+    text-align: center;
+}
+
+.booking-form {
+    margin:30px auto;
+    /* text-align: center; */
+    width:30%;
+    /* border:2px solid black; */
+    padding:10px;
+}
+
+.booking-form label{
+    display: inline-block;
+    margin: 10px auto 0px auto;
+    font-size: 20px;
+}
+
+.booking-form input{
+    border:none;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    background-color: rgb(255, 255, 255);
+    width:100%;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.booking-form .date{
+    height: 40px;
+}
+
+.check-in-block, .check-out-block {
+    display: inline-block;
+    width: 48%;
+    /* border:2px solid black; */
+    margin:0;
+    padding:0;
+}
+.check-in-block {
+    margin-right: 6px;
+}
+
+#select-stay-button{
+    display: inline-block;
+    
+}
+
+
+#book {
+    display: block;
+    width: 100%;
+    height:50px;
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    margin:20px auto;
+    border:none;
+    outline:none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.booking-form input:focus{
+    border-bottom: 2px solid green;
+}
+
+#book:hover {
+    background-color: white;
+    color: green;
+    border:2px solid green;
+    background:transparent;
+    transition:.2s;
+}
+

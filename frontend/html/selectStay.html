@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleSelectStay.css">
+    <link rel="stylesheet" href="../css/stylebook.css">
+    <link rel="stylesheet" href="../header-footer-template/style-header-footer.css">
+
+    <title>Book Resort | navya </title>
+</head>
+<body>
+    <header>
+        <div>
+            <div>
+                <ul class="nav-left">
+                    <li> <a href="../html/stay.html" class="head-nav" id="home-stay"> Stay </a> </li>
+                    <li> <a href="../html/explore.html" class="head-nav" id = "home-explore"> Explore </a> </li>
+                    <li> <a href="../html/package.html" class="head-nav" id = "home-package"> Packages </a> </li>
+                </ul>
+            </div>
+            <h3 id="ResortName">
+                <a href="../html/home.html">
+                    Navya
+                </a>
+            </h3>
+            <div>
+                <ul class="nav-right">
+                    <ul class="nav-right">
+                    <li> <a href="../html/selectStay.html" class="head-nav" id = "home-book" > Book </a> </li>   
+                    <li> <a href="../html/gallery.html" class="head-nav" id = "home-gallery"> Gallery </a> </li>   
+                    <li> <a href="../html/login.html" class="head-nav" id = "home-dine"> Profile </a> </li>
+                </ul>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- write code here -->
+    <div class="choose-stay">
+        <!-- <div class="choices">
+            <div class="stay-info">
+                <h2 class="hotel-name">hotel name 1</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat id odio, voluptate ratione cum ut praesentium iusto optio provident.</p>
+                <p class="price-tag">$2000</p>
+                <button>Select</button>
+            </div>
+            <img src="../images/home-stay.jpeg" alt="">
+        </div> -->
+        
+        <!-- <button class="book">Book</button> -->
+    </div>
+
+    <h1 id="book-heading">Booking form</h1>
+    <form class="booking-form">
+        <!-- <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required> -->
+
+        <!-- <label for="email">Email:</label>
+        <input type="email" name="name" id="email" required> -->
+
+        <div class="check-in-block">
+            <label for="check-in-date">Check-in:</label>
+            <input class="date" type="date" name="check-in-date" id="check-in-date" required>
+        </div>
+        <div class="check-out-block">
+            <label for="check-out-date">Check-out:</label>
+            <input class="date" type="date" name="check-out-date" id="check-out-date" required>
+        </div>
+
+        <label for="promo-code" style="font-size: 16px;">Enter Promo code</label>
+        <input type="text" name="promo-code" id="promo-code">
+        
+        <!-- <a href="../html/selectStay.html" id="pay-now">Pay now</a> -->
+
+        <button id="book">Proceed</button>
+    </form>
+    
+    
+    <footer>
+        <div class="foot-nav">
+            <div class="foot-left">
+                <h3>Location</h3>
+                <ul>
+                    <li>navya <br>
+                        Banjar Tabola, Telaga Tawang,<br> 
+                        Sidemen, Kabupaten Karangasem,<br> 
+                         80864, Indonesia.
+                    </li>
+                </ul>
+            </div>
+            <div class="foot-center">
+                <h3>Social</h3>
+                <div>
+                    <a href="https://www.facebook.com/navyaresort/" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Facebook_svg_5279111.png" alt=""> </a>
+                    <a href="https://www.instagram.com/navya/" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Instagram_svg_5279112.svg" alt=""> </a>
+                    <a href="https://www.youtube.com/channel/UCM-ImvC8lnhdnIzrMg5qziQ/featured?view_as=subscriber" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Youtube_svg_5279120.png" alt=""> </a>
+                </div> 
+            </div>
+            <div class="foot-right">
+                <h3>Contact</h3>
+                <ul>
+                    <li>
+                        <a href="mailto:navya@navya-.com">navya@navya-.com</a>
+                    </li>
+                    <li>
+                        <a href="tel: +62 821 4710 3884">
+                            +62 821 4710 3884 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="developers">
+            <p>Designed and Developed by</p>
+            <p id="dev-names">Omkar Gunjal | Yash Harne | Ruchita Gosavi | Prajwal Gujjar</p>
+        </div>
+
+        <div class="terms-conditions">
+            <p><a href="#">terms and conditions</a></p>
+            <p><a href="#">privacy policy</a></p>
+        </div>
+        
+    </footer>
+    
+</body>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-database.js"></script>
+<script src="../js/dynamichome.js"></script>
+<script src="../js/selectStayjs.js"></script>
+</html>

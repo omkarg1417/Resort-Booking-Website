@@ -15,13 +15,15 @@ const loginChecks = (req, res, next) => {
 
 const isLoggedIn = (req, res, next) => {
     // console.log(req.cookies.token);
-    if(req.cookies.token === undefined) {
+    // if(req.cookies.token === undefined) {
+    // if(!req.body.auth || !req.cookies.token){
+    if(!req.headers.auth) {
         return res.status(401).json({
             err: "Unauthorized"
         });
     }
     else{
-        const decoded = jwt.verify(req.cookies.token, SECRET);
+        const decoded = jwt.verify(req.headers.auth, SECRET);
         req.id = decoded.id;
         req.role = decoded.role;
         // console.log(req.id, req.role);
@@ -44,7 +46,7 @@ const isUser = (req, res, next) => {
         next();
     } else{
         return res.status(401).json({
-            err : "Unauthorized"
+            err : "Unauthorized role"
         });
     }
 }

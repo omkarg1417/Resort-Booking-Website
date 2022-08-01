@@ -4,7 +4,7 @@ const router = express.Router();
 const {registerInitialCheck} = require('../middlewares/registerInitialChecks');
 const {loginChecks, isLoggedIn, isAdmin} = require('../middlewares/loginChecks');
 const {adminRegisterCheck} = require('../middlewares/adminRegisterCheck');
-const {signupAdmin, login, logout, uploadHotelInfo, getUserCount, updateHotelInfo, deleteHotelInfo} = require('../controllers/admin');
+const {signupAdmin, login, logout, uploadHotelInfo, getUserCount, updateHotelInfo, deleteHotelInfo, getAdminDetails} = require('../controllers/admin');
 const {getHotelInfo, getHotels} = require('../controllers/hotel');
 
 
@@ -14,6 +14,8 @@ router.post('/signup', [registerInitialCheck, adminRegisterCheck], signupAdmin);
 router.post('/login', loginChecks, login);
 
 router.get('/logout', logout);
+
+router.get('/get-admin/:id',[isLoggedIn, isAdmin], getAdminDetails);
 
 //Hotel routes
 router.get('/get-hotels/?location', getHotels);

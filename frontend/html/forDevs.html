@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleForDevs.css">
+    <link rel="stylesheet" href="../header-footer-template/style-header-footer.css">
+    <title>Upload Hotel Data | For Staff</title>
+</head>
+<body>
+    <header>
+        <div>
+            <div>
+                <ul class="nav-left">
+                    <li> <a href="../html/home.html" class="head-nav" id="home-stay"> Home </a> </li>
+                </ul>
+            </div>
+            <h3 id="ResortName">navya</h3> 
+            <div>
+                <ul class="nav-right">
+                    <li> <a href="../html/selectStay.html" class="head-nav" id = "home-book" > Book </a> </li>   
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- write code here -->
+    <h1 class="hotel-info">Hotel info</h1>
+    <form class="add-hotel">
+        <label for="hotel-name">Hotel Name:</label>
+        <input type="text" name="hotel-name" id="hotel-name"  required>
+
+        <label for="">Maximum Occupancy: </label>
+        <input type="number" name="max-occupancy" id = "max-occupancy" required>
+
+        <label for="cost">Cost: </label>
+        <input type="number" name="cost" id="cost" required>
+
+        <label for="hotel-image">Hotel Image: </label>
+        <input type="file" name="hotel-image" id="hotel-image" required>
+
+        <button class="button">Submit</button>
+    </form>
+    
+    <footer>
+        <div class="foot-nav">
+            <div class="foot-left">
+                <h3>Location</h3>
+                <ul>
+                    <li>navya <br>
+                        Banjar Tabola, Telaga Tawang,<br> 
+                        Sidemen, Kabupaten Karangasem,<br> 
+                         80864, Indonesia.
+                    </li>
+                </ul>
+            </div>
+            <div class="foot-center">
+                <h3>Social</h3>
+                <div>
+                    <a href="https://www.facebook.com/navyaresort/" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Facebook_svg_5279111.png" alt=""> </a>
+                    <a href="https://www.instagram.com/navya/" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Instagram_svg_5279112.svg" alt=""> </a>
+                    <a href="https://www.youtube.com/channel/UCM-ImvC8lnhdnIzrMg5qziQ/featured?view_as=subscriber" class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Youtube_svg_5279120.png" alt=""> </a>
+                </div> 
+            </div>
+            <div class="foot-right">
+                <h3>Contact</h3>
+                <ul>
+                    <li>
+                        <a href="mailto:navya@navya-.com">navya@navya-.com</a>
+                    </li>
+                    <li>
+                        <a href="tel: +62 821 4710 3884">
+                            +62 821 4710 3884 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="developers">
+            <p>Designed and Developed by</p>
+            <p id="dev-names">Omkar Gunjal | Yash Harne | Ruchita Gosavi | Prajwal Gujjar</p>
+        </div>
+
+        <div class="terms-conditions">
+            <p><a href="#">terms and conditions</a></p>
+            <p><a href="#">privacy policy</a></p>
+        </div>
+        
+    </footer>
+    
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+<script src="../js/forDevs.js"></script>
+<!-- <script src="../js/dynamichome.js"></script> -->
+
+</html>

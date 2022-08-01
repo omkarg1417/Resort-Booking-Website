@@ -2,7 +2,7 @@ const Hotel = require('../models/hotel');
 
 const getHotelInfo = async (req, res) => {
     const id = req.params['id'];
-
+    // console.log(id);
     try {
         const hotel = await Hotel.findOne({_id:id});
         if(!hotel) {

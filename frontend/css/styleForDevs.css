@@ -1,0 +1,64 @@
+body{
+    background-color: rgb(245, 245, 245);
+}
+
+
+/* header  */
+
+
+
+
+.hotel-info{
+    text-align: center;
+}
+.add-hotel{
+    /* border:2px solid black; */
+    width: 60%;
+    margin:35px auto;
+    padding: 20px;
+}
+ 
+.add-hotel input{
+    display: block;
+    padding:10px;
+    margin:auto;
+    width: 100%;
+    font-size: 18px;
+    border:none;
+    outline:none;
+    border-bottom: 2px solid #ccc;
+    background-color: rgb(255, 255, 255);
+    height: auto;
+}
+
+.add-hotel label {
+    display: inline-block;
+    margin:10px auto;
+    font-size: 20px;
+}
+
+#hotel-image {
+    /* background: none; */
+    border:none;
+    font-size: 16px;
+}
+
+.button {
+    width: 102%;
+    margin:20px auto;
+    height: 50px;
+    padding:10px;
+    background-color: rgb(0, 161, 0);
+    font-size: 20px;
+    color:#fff;
+    border-radius: 5px;
+    border:none;
+    outline:none;
+    cursor: pointer;
+}
+
+.button:hover{
+    color:rgb(0, 161, 0);
+    border:2px solid rgb(0, 161, 0);
+    background: transparent;
+}

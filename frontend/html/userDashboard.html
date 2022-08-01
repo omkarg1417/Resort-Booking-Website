@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../header-footer-template/style-header-footer.css">
+    <link rel="stylesheet" href="../css/styleUserDashboard.css">
+    <title>Personal Details</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div>
+                <ul class="nav-left">
+                    <li> <a href="../html/stay.html" class="head-nav" id="home-stay"> Stay </a> </li>
+                    <li> <a href="../html/explore.html" class="head-nav" id="home-explore"> Explore </a> </li>
+                    <li> <a href="../html/package.html" class="head-nav" id="home-package"> Packages </a> </li>
+                </ul>
+            </div>
+            <h3 id="ResortName">
+                <a href="../html/home.html">
+                    Navya
+                </a>
+            </h3>
+            <div>
+                <ul class="nav-right">
+                    <li> <a href="../html/dine.html" class="head-nav" id="home-dine"> Dine </a> </li>
+                    <li> <a href="../html/gallery.html" class="head-nav" id="home-gallery"> Gallery </a> </li>
+                    <li> <a href="../html/selectStay.html" class="head-nav" id="home-book"> Book </a> </li> 
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="user-dashboard">
+            <div id="details">
+                <h2>Personal Details</h2>
+                <div class="user-avatar">
+                    <!-- <a href="#"> -->
+                        <img src="../images/homeImage.jpg" class="avatar-img">
+                    <!-- </a> -->
+                </div>
+                <div>
+                    <p class="detail">Username</p>
+                    <p id="username" class="values">xyz</p>
+                </div>
+                <div>
+                    <p class="detail">Email</p>
+                    <p id="email" class="values">xyz@gmail.com</p>
+                </div>
+                <div>
+                    <p class="detail">City</p>
+                    <p class="values">Nashik</p>
+                </div>
+                <div>
+                    <button id="my-btn">Log out</button>
+                </div>
+            </div>
+            <div id="bookings-container">
+                <h2>Bookings</h2>
+                <div id="bookings">
+                    <div class="booking">
+                        <div class="resort-info">
+                            <h3>Example Resort</h3>
+                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, expedita.</p>
+                            <button class="btn">Resort details</button>
+                        </div>
+                        <div class="resort-img-div">
+                                <img src="../images/homeImage.jpg" class="resort-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="foot-nav">
+            <div class="foot-left">
+                <h3>Location</h3>
+                <ul>
+                    <li>mumbai</li>
+                    <li>nashik</li>
+                    <li>pune</li>
+                </ul>
+            </div>
+            <div class="foot-center">
+                <h3>Social</h3>
+                <div>
+                    <a href="https://www.facebook.com/navyaresort/" class="socials" target="_blank"> <img
+                            src="../images/iconfinder_Circled_Facebook_svg_5279111.png" alt=""> </a>
+                    <a href="https://www.instagram.com/navya/" class="socials" target="_blank"> <img
+                            src="../images/iconfinder_Circled_Instagram_svg_5279112.svg" alt=""> </a>
+                    <a href="https://www.youtube.com/channel/UCM-ImvC8lnhdnIzrMg5qziQ/featured?view_as=subscriber"
+                        class="socials" target="_blank"> <img src="../images/iconfinder_Circled_Youtube_svg_5279120.png"
+                            alt=""> </a>
+                </div>
+            </div>
+            <div class="foot-right">
+                <h3>Contact</h3>
+                <ul>
+                    <li>
+                        <a href="mailto:navya@navya-.com">navya@navya-.com</a>
+                    </li>
+                    <li>
+                        <a href="tel: +62 821 4710 3884">
+                            +62 821 4710 3884
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="for-staff">
+            <p><a href="">For Staff</a></p>
+        </div>
+
+        <div class="developers">
+            <p>Designed and Developed by</p>
+            <p id="dev-names">Omkar Gunjal | Yash Harne | Ruchita Gosavi | Prajwal Gujjar</p>
+        </div>
+
+        <div class="terms-conditions">
+            <p><a href="#">terms and conditions</a></p>
+            <p><a href="#">privacy policy</a></p>
+        </div>
+
+    </footer>
+
+</body>
+
+<script src="../js/dynamichome.js"></script>
+<script src="../js/userDashboard.js"></script>
+
+</html>

@@ -73,13 +73,18 @@ const login = async (req, res) => {
                 expiresIn: '8h' 
             });
 
-            res.cookie("token", token);
+            res.cookie("token", token, {
+                expires: new Date(
+                  Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+                ),
+                httpOnly: true,
+              });
 
             const result = {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                token: `Bearer ${token}`,
+                token: token,
                 expiresIn: "1d",
             }
 
@@ -106,7 +111,8 @@ const logout = (req, res) => {
 }
 
 const getUserDetails = async (req, res) => {
-    const id = req.id;
+    // const id = req.id;
+    const {id} = req.params;
     try {
         const user = await User.findOne({_id: id});
         res.status(200).json({
@@ -202,7 +208,7 @@ const bookResort = async (req, res) => {
     const {checkInDate, checkOutDate, memberCount} = req.body;
     try{
         
-        const hotel = await Hotel.findById(id);
+        const hotel = await Hotel.findById({_id : hotelId});
         if(!hotel) {
             return res.status(400).json({
                 err: "Hotel Not found"
@@ -231,11 +237,18 @@ const bookResort = async (req, res) => {
         };
         
         const newBooking = new Booking(bookingObject);
+        // console.log(newBooking);
         const savedBooking = await newBooking.save();
 
         
         const user = await User.findOne({_id : userId});
         await sendBookingMail(user, hotel, savedBooking, {isBookingCreation: true});
+
+
+        
+        await user.bookings.push(hotel._id.toString());
+        
+        await user.save();
         
         res.status(200).json({
             message: "Hotel booked successfully",

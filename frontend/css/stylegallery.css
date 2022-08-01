@@ -1,0 +1,37 @@
+.gallery-top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 2px solid black; */
+    height:660px;
+    background: url('../images/Explore3.jpg') no-repeat center center;
+    background-size: 100%;
+    width:100%;
+    color:white;
+    /* opacity: 0.9; */
+    filter:brightness(0.6);
+    background-color: black;
+}
+
+.gallery-top p{
+    font-size: 34px;
+    font-weight: bold;
+    border-top: 4px solid white;
+    border-bottom: 4px solid white;
+    padding-top:20px;
+    padding-bottom:20px;
+    width:200px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.gallery-data{
+    text-align: center;
+    margin: 40px auto;
+}
+
+.gallery-data img {
+    
+    height:310px;
+    width: 480px;   
+}
